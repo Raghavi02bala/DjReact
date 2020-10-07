@@ -1,20 +1,50 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Button, Input} from 'antd';
+import axios from 'axios';
 
 const FormItem = Form.Item;
 
 const CustomForm = (props) => {
 
-    function handleFormSubmit(event) {
-        event.preventDefault();
+    function handleFormSubmit(event, requestType, articleID) {
         const title = event.target.elements.title.value;
         const content = event.target.elements.content.value;
 
-        console.log(title, content);
+        switch( requestType ){
+            case 'post':
+                return axios.post('http://127.0.0.1:8000/api/',{
+                    title: title,
+                    content: content
+                })
+                .then(res => console.log(res))
+                .catch(error => console.err(error));
+            case 'put':
+                return axios.put(`http://127.0.0.1:8000/api/${articleID}/`,{
+                    title: title,
+                    content: content
+                })
+                .then(res => console.log(res))
+                .catch(error => console.err(error));
+        }
+        this.forceUpdate();
     }
+    
+    // useEffect(() => {
+    //     return () => {
+    //         console.log("hello");
+    //     }
+    // }, [])
+
+    // function sendData(){
+    //     props.parent("Hello hi hrhr")
+    // }
 
     return (
-        <Form onSubmitCapture={handleFormSubmit}>
+        <Form onSubmitCapture={(event) => handleFormSubmit(
+            event,
+            props.requestType,
+            props.articleID
+        )}>
             <FormItem label="Title">
                 <Input name="title" placeholder="Put title here" />
             </FormItem>
@@ -22,7 +52,8 @@ const CustomForm = (props) => {
                 <Input name="content" placeholder="Put Content here..." />
             </FormItem>
             <FormItem >
-                <Button type="primary" htmlType="submit" onClick={props.hello}>Submit</Button>
+                <Button type="primary" htmlType="submit">{props.btnText}</Button>   
+                {/* <Button onClick={sendData}>send</Button> */}
             </FormItem>
         </Form>
     );

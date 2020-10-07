@@ -23,9 +23,13 @@ class ArticleList extends React.Component{
 
     }
 
-    hello(){
-        alert("Hello");
-    }
+    
+
+    // passing data frm child(form) to parent(articlelistview)
+
+    // callback = (msg) => {
+    //     alert(msg); 
+    // }
 
     render(){
         return(
@@ -34,10 +38,15 @@ class ArticleList extends React.Component{
             <Articles data={this.state.articles}/>
             <br/>
             <h2>Create an Article</h2>
-            <CustomForm/>
+            <CustomForm
+                requestType="post"
+                articleID={null}
+                btnText="Create" 
+            // parent={this.callback}
+            />
             </div>
         )
     }
 }
-
+ 
 export default ArticleList;
