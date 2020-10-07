@@ -3,6 +3,8 @@ import  Articles  from "../components/Article";
 import axios from 'axios';
 import CustomForm from '../components/Form'
 
+// parent and article is it's child
+
 class ArticleList extends React.Component{
     state = {
         articles: []
@@ -21,9 +23,14 @@ class ArticleList extends React.Component{
 
     }
 
+    hello(){
+        alert("Hello");
+    }
+
     render(){
         return(
             <div>
+                {/* article is child component */}
             <Articles data={this.state.articles}/>
             <br/>
             <h2>Create an Article</h2>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import {Form, Button, Input} from 'antd';
 
-const FormItem = Form.Item
+const FormItem = Form.Item;
 
-class CustomForm extends React.Component {
+const CustomForm = (props) => {
 
-    handleFormSubmit = (event) => {
+    function handleFormSubmit(event) {
         event.preventDefault();
         const title = event.target.elements.title.value;
         const content = event.target.elements.content.value;
@@ -13,23 +13,19 @@ class CustomForm extends React.Component {
         console.log(title, content);
     }
 
-    render() {
-        return (
-            <>
-                <Form onSubmit={this.handleFormSubmit}>
-                    <FormItem label="Title">
-                        <Input name="title" placeholder="Put title here" />
-                    </FormItem>
-                    <FormItem label="Content">
-                        <Input name="content" placeholder="Put Content here..." />
-                    </FormItem>
-                    <FormItem >
-                        <Button type="primary" htmlType="submit">Submit</Button>
-                    </FormItem>
-                </Form>
-            </>
-        );
-    }
+    return (
+        <Form onSubmitCapture={handleFormSubmit}>
+            <FormItem label="Title">
+                <Input name="title" placeholder="Put title here" />
+            </FormItem>
+            <FormItem label="Content">
+                <Input name="content" placeholder="Put Content here..." />
+            </FormItem>
+            <FormItem >
+                <Button type="primary" htmlType="submit" onClick={props.hello}>Submit</Button>
+            </FormItem>
+        </Form>
+    );
 }
 
 export default CustomForm;
